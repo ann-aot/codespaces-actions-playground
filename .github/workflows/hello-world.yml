@@ -6,6 +6,6 @@ jobs:
   hello-world:
     runs-on: ubuntu-latest
     steps:
-      - name: Hello world
+      - name: My first github action
         run: |
-          echo "Hello world"
+          echo "Hello world! My first github action."
