@@ -2,7 +2,7 @@ FROM registry.access.redhat.com/ubi8/nodejs-16:1-5 as builder
 
 
 COPY ./package*.json ./
-RUN npm i
+RUN npm install
 COPY . ./
 RUN npm run build
 
