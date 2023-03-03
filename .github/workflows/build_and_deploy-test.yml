@@ -1,7 +1,6 @@
 # Simple workflow for deploying static content to GitHub Pages
 # yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
-name: Deploy static content to Pages
-
+name: Build and deploy test Ann
 on:
   # Runs on pushes targeting the default branch
   push:
