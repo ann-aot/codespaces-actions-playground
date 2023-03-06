@@ -4,7 +4,7 @@ FROM node:lts-alpine
 RUN npm install -g http-server
 
 # make the 'vue-project-test-1' folder the current working directory
-WORKDIR /vue-project-test-1/
+WORKDIR /vue-project-test-1
 
 
 
@@ -12,7 +12,7 @@ WORKDIR /vue-project-test-1/
 COPY package*.json ./
 
 # install project dependencies
-RUN npm install --package-lock-only
+RUN npm ci
 
 # copy project files and folders to the current working directory (i.e. 'app' folder)
 COPY . .
