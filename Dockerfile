@@ -4,7 +4,7 @@ FROM node:lts-alpine
 RUN npm install -g http-server
 
 # make the 'vue-project-test-1' folder the current working directory
-WORKDIR /vue-project-test-1
+WORKDIR /codespaces-actions-playground/vue-project-test-1/
 
 # copy both 'package.json' and 'package-lock.json' (if available)
 COPY package*.json ./
