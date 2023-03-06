@@ -1,6 +1,5 @@
 FROM node:lts-alpine
 
-CMD [ "vue-project-test-1" ]
 # make the 'vue-project-test-1' folder the current working directory
 WORKDIR vue-project-test-1/
 
@@ -21,4 +20,4 @@ COPY . .
 RUN npm run build
 
 EXPOSE 8080
-CMD [ "http-server", "dist" ]
+CMD [ "http-server", "dist" , ""vue-project-test-1""]
