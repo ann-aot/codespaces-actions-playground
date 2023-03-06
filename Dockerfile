@@ -1,11 +1,11 @@
 FROM node:lts-alpine
 
-# install simple http server for serving static content
-RUN npm install -g http-server
-
 # make the 'vue-project-test-1' folder the current working directory
 WORKDIR /codespaces-actions-playground/vue-project-test-1/
 
+
+# install simple http server for serving static content
+RUN npm install -g http-server
 # copy both 'package.json' and 'package-lock.json' (if available)
 COPY package*.json ./
 
