@@ -1,17 +1,18 @@
 FROM node:lts-alpine
 
-# make the 'vue-project-test-1' folder the current working directory
-WORKDIR vue-project-test-1/
-
-
-
 # install simple http server for serving static content
 RUN npm install -g http-server
+
+# make the 'vue-project-test-1' folder the current working directory
+WORKDIR /vue-project-test-1/
+
+
+
 # copy both 'package.json' and 'package-lock.json' (if available)
 COPY package*.json ./
 
 # install project dependencies
-RUN npm ci
+RUN npm install --package-lock-only
 
 # copy project files and folders to the current working directory (i.e. 'app' folder)
 COPY . .
@@ -20,4 +21,4 @@ COPY . .
 RUN npm run build
 
 EXPOSE 8080
-CMD [ "http-server", "dist" , ""vue-project-test-1""]
+CMD [ "http-server", "dist" , "vue-project-test-1"]
