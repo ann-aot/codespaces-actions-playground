@@ -8,7 +8,8 @@ RUN ls
 
 COPY ./ /vue-project-test-1
 RUN ls
-RUN vim vue-project-test-1/package.json
+RUN cd vue-project-test-1
+RUN ls
 
 RUN npm install
 
