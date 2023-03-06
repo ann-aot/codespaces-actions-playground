@@ -1,8 +1,10 @@
 name: "Action major version tag"
 
 on:
-  push: 
-    branches: ["production"]
+  release:
+    types:
+      - published
+      - edited
 
 jobs:
   latest:
