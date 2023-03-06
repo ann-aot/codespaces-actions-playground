@@ -1,7 +1,8 @@
 FROM node:lts-alpine
 
 # make the 'vue-project-test-1' folder the current working directory
-WORKDIR /codespaces-actions-playground/vue-project-test-1/
+WORKDIR vue-project-test-1/
+
 
 
 # install simple http server for serving static content
