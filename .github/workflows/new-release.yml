@@ -6,28 +6,12 @@ on:
         required: true
         default: "null"
         type: string
-      releaseVersion:
-        description: "Release Version"
-        required: true
-        default: "null"
-        type: string
-
 jobs:
-  release-on-push:
+  release:
     runs-on: ubuntu-latest
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - id: release
-        uses: rymndhng/release-on-push-action@master
+      - uses: avakar/tag-and-release@v1
         with:
-          tag_prefix: "v"
-          release_name: "Release ${{ inputs.releaseTag }}"
-          bump_version_scheme: minor
-          use_github_release_notes: true
-          release_body: "When set, adds extra text to body!"
-          
-      - name: Check Output Parameters
-        run: |
-          echo "Got tag name ${{ steps.release.outputs.tag_name }}"
-          echo "Got release version ${{ steps.release.outputs.version }}"
+          tag_name: ${{ inputs.releaseTag }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
