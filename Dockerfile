@@ -2,12 +2,12 @@
 FROM node:alpine
 
 #Install some dependencies
-RUN CMD
+RUN ls
 WORKDIR /vue-project-test-1
-RUN CMD
+RUN ls
 
 COPY ./ /vue-project-test-1
-RUN CMD
+RUN ls
 
 RUN npm install
 
