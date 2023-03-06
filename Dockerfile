@@ -1,13 +1,16 @@
 # build stage
 FROM node:lts-alpine as build-stage
-WORKDIR /vue-project-test-1
 COPY package*.json ./
 RUN npm install
 COPY . .
 RUN npm run build
 
-# production stage
-FROM nginx:stable-alpine as production-stage
-COPY --from=build-stage /app/dist /usr/share/nginx/html
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+
+
+FROM registry.access.redhat.com/ubi8/nodejs-16:1-5 as deployer
+
+RUN npm i -g serve
+COPY --from=builder /opt/app-root/src/dist .
+COPY --from=builder /opt/app-root/src/serve.json .
+
+CMD ["sh", "-c","serve", "-p", "$PORT", "-s", "."]
