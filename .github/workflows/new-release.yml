@@ -1,7 +1,16 @@
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
+    inputs:
+      releaseTag:
+        description: "Release Tag"
+        required: true
+        default: "null"
+        type: string
+      releaseVersion:
+        description: "Release Version"
+        required: true
+        default: "null"
+        type: string
 
 jobs:
   release-on-push:
@@ -13,7 +22,7 @@ jobs:
         uses: rymndhng/release-on-push-action@master
         with:
           tag_prefix: "v"
-          release_name: "Release v-r-0.0"
+          release_name: "Release ${{ inputs.releaseTag }}"
           bump_version_scheme: minor
           use_github_release_notes: true
           release_body: "When set, adds extra text to body!"
