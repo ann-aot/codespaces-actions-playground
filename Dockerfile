@@ -1,4 +1,4 @@
-FROM node:lts-alpine
+FROM registry.access.redhat.com/ubi8/nodejs-16:1-5 as builder
 
 # install simple http server for serving static content
 RUN npm install -g http-server
