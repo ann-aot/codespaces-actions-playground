@@ -1,10 +1,11 @@
 FROM registry.access.redhat.com/ubi8/nodejs-16:1-5 as builder
 
-
+# build stage
 COPY package*.json ./
-RUN npm ci
-COPY . ./
+RUN npm install
+COPY . .
 RUN npm run build
+
 
 FROM registry.access.redhat.com/ubi8/nodejs-16:1-5 as deployer
 
