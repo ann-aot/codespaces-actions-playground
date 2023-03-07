@@ -1,0 +1,25 @@
+name: Docker flownative/action-docker-build@v1
+on:
+  workflow_dispatch:
+    inputs:
+      releaseTag:
+        description: "tag to be build"
+        required: true
+        default: "null"
+        type: string
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+
+      - name: Build Docker image
+        uses: flownative/action-docker-build@v1
+        with:
+          tag_ref: ${{ inputs.releaseTag }}
+          image_name: flownative/docker-base/base
+          registry_password: ${{ secrets.GITHUB_TOKEN }}
