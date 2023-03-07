@@ -1,4 +1,4 @@
-name: Release avakar/tag-and-release@v1
+name: Release release-drafter/release-drafter@v5
 
 on:
   workflow_dispatch:
