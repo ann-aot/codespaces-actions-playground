@@ -2,13 +2,8 @@ name: Release rymndhng/release-on-push-action@master
 on:
   workflow_dispatch:
     inputs:
-      releaseTag:
-        description: "Release Tag"
-        required: true
-        default: "null"
-        type: string
-      releaseVersion:
-        description: "Release Version"
+      releaseTitle:
+        description: "Add to release title starting with 'Release '"
         required: true
         default: "null"
         type: string
@@ -23,10 +18,9 @@ jobs:
         uses: rymndhng/release-on-push-action@master
         with:
           tag_prefix: "v"
-          release_name: "Release ${{ inputs.releaseTag }}"
+          release_name: "Release ${{ inputs.releaseTitle }}"
           bump_version_scheme: patch
           use_github_release_notes: true
-          release_body: "When set, adds extra text to body!"
           
       - name: Check Output Parameters
         run: |
