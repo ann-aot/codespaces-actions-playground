@@ -1,4 +1,4 @@
-name: Release rymndhng/release-on-push-action@master
+name: Release avakar/tag-and-release@v1
 
 on:
   workflow_dispatch:
