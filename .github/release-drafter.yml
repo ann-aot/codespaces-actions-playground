@@ -24,8 +24,26 @@ version-resolver:
   patch:
     labels:
       - 'patch'
-  default: patch
+  default: major
 template: |
-  ## Changes
+  $TITLE
+
+  ## CHANGES
 
   $CHANGES
+
+  ## CONTRIBUTORS
+
+  $CONTRIBUTORS
+
+  ## PREVIOUS_TAG
+  
+  $PREVIOUS_TAG
+
+  ## REPOSITORY
+  
+  $REPOSITORY
+
+  ## OWNER
+  
+  $OWNER
