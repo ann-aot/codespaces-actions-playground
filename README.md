@@ -1,17 +1,40 @@
-# GitHub Actions Playground
+# vue-project-test-1
 
-Welcome to the GitHub Actions Playground! We've got everything fired up and running for you to explore GitHub Actions.
+This template should help get you started developing with Vue 3 in Vite.
 
-Everything you do here is contained within this one codespace. There is no repository on GitHub yet. As part of this exercise we'll prompt you to publish a repository to help you see workflows in action. If you were just exploring and haven't published to a repository, you can simply delete your codespace and any related changes made in that codespace will be gone forever.
+## Recommended IDE Setup
 
-## Instructions for using the Playground
+[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
 
-If you have forked this repository and would like to use this as a codespace template:
+## Type Support for `.vue` Imports in TS
 
-1. Visit `https://github.com/<organization>/<repository>/settings`
-2. Check the box next to General > Template repository
-3. Visit `https://github.com/<organization>/<repository>`
-4. Click "Use this template" button at the top right
-5. Click "Open in a codespace"
+TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
 
-If you need to delete the codespace, you can do this at [https://github.com/codespaces](https://github.com/codespaces)
+If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+
+1. Disable the built-in TypeScript Extension
+    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
+    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
+2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+
+## Customize configuration
+
+See [Vite Configuration Reference](https://vitejs.dev/config/).
+
+## Project Setup
+
+```sh
+npm install
+```
+
+### Compile and Hot-Reload for Development
+
+```sh
+npm run dev
+```
+
+### Type-Check, Compile and Minify for Production
+
+```sh
+npm run build
+```

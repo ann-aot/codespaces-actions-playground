@@ -1,11 +1,11 @@
-name: Hello world
+# name: Hello world
 
-on: [push]
+# on: [push]
 
-jobs:
-  hello-world:
-    runs-on: ubuntu-latest
-    steps:
-      - name: My first github action
-        run: |
-          echo "Hello world! My first github action."
+# jobs:
+#   hello-world:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: My first github action
+#         run: |
+#           echo "Hello world! My first github action."
