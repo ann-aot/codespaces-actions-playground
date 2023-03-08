@@ -1,9 +1,19 @@
-enhancement: ["*.js", "*.css", "*.html", "*.vue"]
-backend: ["/api", "*.rb"]
-legal: ["LICENSE*", "NOTICES*"]
-config: .github
-feature: ["*.js", "*.css", "*.html", "*.vue"]
-fix: ["*.js", "*.css", "*.html", "*.vue"]
-bugfix: ["*.js", "*.css", "*.html", "*.vue"]
-bug: ["*.js", "*.css", "*.html", "*.vue"]
-chore: ["*.js", "*.css", "*.html", "*.vue"]
+# labeler "simple" schema
+# Comment is applied to both issues and pull requests.
+# If you need a more robust solution, consider the "full" schema.
+comment: |
+  👍 Thanks for this!
+  🏷 I have applied any labels matching special text in your issue.
+
+  Please review the labels and make any necessary changes.
+
+# Labels is an object where:
+# - keys are labels
+# - values are array of string patterns to match against title + body in issues/prs
+labels:
+  enhancement: ["*.js", "*.css", "*.html", "*.vue"]
+  feature: ["*.js", "*.css", "*.html", "*.vue"]
+  fix: ["*.js", "*.css", "*.html", "*.vue"]
+  bugfix: ["*.js", "*.css", "*.html", "*.vue"]
+  bug: ["*.js", "*.css", "*.html", "*.vue"]
+  chore: ["*.js", "*.css", "*.html", "*.vue"]
