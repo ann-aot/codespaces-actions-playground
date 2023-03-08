@@ -47,3 +47,19 @@ template: |
   ## OWNER
   
   $OWNER
+autolabeler:
+  - label: 'chore'
+    files:
+      - '*.js", "*.css", "*.html", "*.vue'
+  - label: 'bug'
+    files:
+      - '*.js", "*.css", "*.html", "*.vue'
+    branch:
+      - '/fix\/.+/'
+    title:
+      - '/fix/i'
+  - label: 'enhancement'
+    files:
+      - '*.js", "*.css", "*.html", "*.vue'
+    body:
+      - '/JIRA-[0-9]{1,4}/'
