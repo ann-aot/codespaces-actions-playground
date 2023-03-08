@@ -1,0 +1,9 @@
+enhancement: ["*.js", "*.css", "*.html", "*.vue"]
+backend: ["/api", "*.rb"]
+legal: ["LICENSE*", "NOTICES*"]
+config: .github
+feature: ["*.js", "*.css", "*.html", "*.vue"]
+fix: ["*.js", "*.css", "*.html", "*.vue"]
+bugfix: ["*.js", "*.css", "*.html", "*.vue"]
+bug: ["*.js", "*.css", "*.html", "*.vue"]
+chore: ["*.js", "*.css", "*.html", "*.vue"]
