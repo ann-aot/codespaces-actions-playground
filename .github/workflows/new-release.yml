@@ -1,4 +1,4 @@
-name: Release release-drafter/release-drafter@v5
+name: Release release-drafter/release-drafter@v5 (1st workflow to draft the release)
 
 on:
   workflow_dispatch:

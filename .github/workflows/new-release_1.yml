@@ -1,4 +1,4 @@
-name: Release rymndhng/release-on-push-action@master
+name: Release rymndhng/release-on-push-action@master (1 workflow -> publish release and build)
 on:
   workflow_dispatch:
     inputs:
@@ -26,3 +26,10 @@ jobs:
         run: |
           echo "Got tag name ${{ steps.release.outputs.tag_name }}"
           echo "Got release version ${{ steps.release.outputs.version }}"
+  deploy:
+    runs-on: ubuntu-latest
+    steps:       
+      - name: build and deploy test
+        run: |
+          echo "build and deployed ${{ steps.release.outputs.tag_name }}"
+          echo "release version ${{ steps.release.outputs.version }}"
