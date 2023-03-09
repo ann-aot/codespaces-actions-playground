@@ -10,5 +10,4 @@ jobs:
     steps:
       - name: Triggered build and deployment
         run: |
-          echo "Tag : ${{ github.base_ref }}"
           echo "release version ${{ github.ref_name }}"
