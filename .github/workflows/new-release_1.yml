@@ -16,13 +16,16 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - id: release
+        name: Release
         uses: rymndhng/release-on-push-action@master
         with:
           tag_prefix: "v"
           release_name: "Release ${{ inputs.releaseTitle }}"
           bump_version_scheme: patch
           use_github_release_notes: true
-          
+        outputs:
+          tagName: ${{ steps.step1.outputs.tag_name }}
+          version: ${{ steps.step1.outputs.version }}
       - name: Check Output Parameters
         run: |
           echo "Got tag name ${{ steps.release.outputs.tag_name }}"
@@ -35,5 +38,5 @@ jobs:
     steps:       
       - name: build and deploy test
         run: |
-          echo "build and deployed ${{ steps.release.outputs.tag_name }}"
-          echo "release version ${{ steps.release.outputs.version }}"
+          echo "build and deployed ${{ needs.release.outputs.tagName }}"
+          echo "release version ${{ needs.release.outputs.version }}"
