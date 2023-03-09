@@ -1,0 +1,14 @@
+name: build and deploy after release is published
+
+on: 
+  release:
+    types: [published]
+
+jobs:
+  hello-world:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Triggered build and deployment
+        run: |
+          echo "Tag : ${{ github.base_ref }}"
+          echo "release version ${{ github.ref_name }}"
