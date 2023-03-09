@@ -2,12 +2,12 @@ name: Release release-drafter/release-drafter@v5 (1st workflow to draft the rele
 
 on:
   workflow_dispatch:
-    inputs:
-      releaseTag:
-        description: "Release Tag"
-        required: true
-        default: "null"
-        type: string
+    # inputs:
+    #   releaseTag:
+    #     description: "Release Tag"
+    #     required: true
+    #     default: "null"
+    #     type: string
 
 permissions:
   contents: read

@@ -1,4 +1,4 @@
-name: Release rymndhng/release-on-push-action@master (1 workflow -> publish release and build)
+name: Release rymndhng/release-on-push-action@master (2 workflow -> publish release and build)
 on:
   workflow_dispatch:
     inputs:
