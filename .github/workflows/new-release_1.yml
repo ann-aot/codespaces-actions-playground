@@ -10,6 +10,7 @@ on:
 
 jobs:
   release:
+    name: Release
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -27,7 +28,10 @@ jobs:
           echo "Got tag name ${{ steps.release.outputs.tag_name }}"
           echo "Got release version ${{ steps.release.outputs.version }}"
   deploy:
+    name: build and deploy
     runs-on: ubuntu-latest
+    needs:
+      - release
     steps:       
       - name: build and deploy test
         run: |
