@@ -4,8 +4,8 @@ on:
   workflow_dispatch:
 
 permissions:
-  # contents: write
-  actions: write
+  contents: write
+  # actions: write
 
 
 jobs:
