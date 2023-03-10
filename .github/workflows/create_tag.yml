@@ -4,7 +4,9 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  # contents: write
+  actions: write
+
 
 jobs:
   create-tag:
@@ -14,6 +16,8 @@ jobs:
       - uses: rickstaa/action-create-tag@v1
         id: "tag_create"
         with:
+          # token: ${{ secrets.GITHUB_TOKEN }}
+          # ssh: ${{ secrets.DOCUMENTER_KEY }}
           tag: "latest"
           tag_exists_error: false
           message: "Latest release"
