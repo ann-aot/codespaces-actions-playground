@@ -10,6 +10,9 @@ jobs:
   actions-tagger:
     runs-on: windows-latest
     steps:
-      - uses: Actions-R-Us/actions-tagger@latest
+      - name: Tag
+        uses: K-Phoen/semver-release-action@master
         with:
-          publish_latest_tag: true
+          release_branch: master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
