@@ -8,7 +8,7 @@ permissions:
 
 jobs:
   actions-tagger:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Tag
         uses: K-Phoen/semver-release-action@master
