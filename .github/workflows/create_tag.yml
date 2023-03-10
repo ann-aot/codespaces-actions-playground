@@ -1,0 +1,15 @@
+name: Release Actions-R-Us/actions-tagger@latest (Actions Tagger)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  actions-tagger:
+    runs-on: windows-latest
+    steps:
+      - uses: Actions-R-Us/actions-tagger@latest
+        with:
+          publish_latest_tag: true
