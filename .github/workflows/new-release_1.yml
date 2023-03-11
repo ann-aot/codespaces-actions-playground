@@ -20,7 +20,7 @@ jobs:
         with:
           tag_prefix: "v"
           release_name: "Release ${{ inputs.releaseTitle }}"
-          bump_version_scheme: patch
+          bump_version_scheme: norelease
           use_github_release_notes: true
       - name: Check Output Parameters
         run: |
