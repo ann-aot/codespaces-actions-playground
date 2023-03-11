@@ -16,7 +16,10 @@ permissions:
   repository-projects: read
   security-events: read
   statuses: read
+
 jobs:
   TagBot:
-    - name: bump-everywhere
-    uses: undergroundwires/bump-everywhere@1.4.0
+    runs-on: ubuntu-latest
+    steps:
+      - name: bump-everywhere
+        uses: undergroundwires/bump-everywhere@1.4.0
