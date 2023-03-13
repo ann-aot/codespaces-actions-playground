@@ -1,26 +1,28 @@
-name: Release Actions-R-Us/actions-tagger@latest (Actions Tagger)
+name: Create TAG Julia TagBot
 
 on:
   workflow_dispatch:
-
+    # inputs:
+    #   releaseTag:
+    #     description: "Release Tag"
+    #     required: true
+    #     default: "null"
+    #     type: string
+    
 permissions:
   contents: write
+  
 
 
 jobs:
   release-please:
     runs-on: ubuntu-latest
     steps:
-      - uses: google-github-actions/release-please-action@v3
-        id: release
+      - id: bump
+        uses: zwaldowski/match-label-action
         with:
-          release-type: simple
-          package-name: my-package
-          bump-minor-pre-major: true
-      - uses: actions/checkout@v2
-      - name: Tag major and minor versions
-        uses: jacobsvante/tag-major-minor-action
-        if: ${{ steps.release.outputs.release_created }}
+          allowed: major,minor,patch
+      - uses: zwaldowski/semver-release-action@v3
         with:
-          major: ${{ steps.release.outputs.major }}
-          minor: ${{ steps.release.outputs.minor }}
+          bump: ${{ steps.bump.outputs.match }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
