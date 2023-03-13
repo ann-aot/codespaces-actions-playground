@@ -13,16 +13,13 @@ permissions:
   contents: write
   
 
-
 jobs:
-  release-please:
+  auto-tag:
     runs-on: ubuntu-latest
     steps:
-      - id: bump
-        uses: zwaldowski/match-label-action
-        with:
-          allowed: major,minor,patch
-      - uses: zwaldowski/semver-release-action@v3
-        with:
-          bump: ${{ steps.bump.outputs.match }}
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: '0'
+    - uses: ArvindSinghRawat/Git-Automatic-Semver-Tagging@main
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
