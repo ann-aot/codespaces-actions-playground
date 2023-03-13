@@ -18,7 +18,9 @@ jobs:
     steps:
       - id: next_version
         uses: zwaldowski/semver-release-action@v3
-        with:            
+        with: 
+          prefix: "v"
+          preid: prerelease        
           bump: prerelease
           dry_run: false
           github_token: ${{ secrets.GITHUB_TOKEN }}
