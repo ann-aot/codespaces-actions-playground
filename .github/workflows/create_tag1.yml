@@ -11,14 +11,18 @@ on:
     
 permissions:
   contents: write
-  
+
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  create-tag:
+    runs-on: ubuntu-18.04
+
     steps:
-      - uses: actions/checkout@master
-      - name: Bump version and push tag
-        uses: laputansoft/github-tag-action@v4.6
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Create Tag
+        uses: negz/create-tag@v1
         with:
-          github_token: ${{ env.github-token }}
-          tag: ${{ steps.package-version.outputs.version }}
+          version: ${{ github.event.inputs.version }}
+          message: ${{ github.event.inputs.message }}
+          token: ${{ secrets.GITHUB_TOKEN }}
