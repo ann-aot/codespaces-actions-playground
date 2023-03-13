@@ -16,10 +16,20 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
-      - name: Bump version and push tag
-        uses: laputansoft/github-tag-action@v4.6
+      - id: next_version
+        uses: zwaldowski/semver-release-action@v3
+          with:
+            dry_run: true
+            bump: "prepatch"
+            github_token: ${{ secrets.GITHUB_TOKEN }}
+      // Do something to modify the repo using `${{ steps.next_version.outputs.version }}`.
+      - run: echo "${{ steps.next_version.outputs.version }}"
+      - run: |
+          git add .
+          git commit -m "Bump version"
+          git push
+          echo "sha=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
+      - uses: zwaldowski/semver-release-action@v3
         with:
-          github_token: ${{ env.github-token }}
-          tag: "v.0.0.0.1255"
-          default_bump : false
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          sha: ${{ steps.git_commit.outputs.sha }}
