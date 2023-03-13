@@ -12,14 +12,13 @@ on:
 permissions:
   contents: write
   
-
 jobs:
-  auto-tag:
+  build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-      with:
-        fetch-depth: '0'
-    - uses: ArvindSinghRawat/Git-Automatic-Semver-Tagging@main
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/checkout@master
+      - name: Bump version and push tag
+        uses: laputansoft/github-tag-action@v4.6
+        with:
+          github_token: ${{ env.github-token }}
+          tag: ${{ steps.package-version.outputs.version }}
