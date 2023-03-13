@@ -26,20 +26,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check the workflow dispatch input
-          id: setVariable
-          shell: bash
-          run: |
-            if [ "inputs.releaseTitle" == "" ]; then
-              echo "bumbVersion=prerelease" >> $GITHUB_OUTPUT
-            else
-              echo "bumbVersion=${{ inputs.releaseTitle }}" >> $GITHUB_OUTPUT
-            fi
-          run: |
-            if [ "inputs.preId" == "" ]; then
-              echo "tagPreId=prerelease" >> $GITHUB_OUTPUT
-            else
-              echo "tagPreId=${{ inputs.preId }}" >> $GITHUB_OUTPUT
-            fi
+        id: setVariable
+        shell: bash
+        run: |
+          if [ "inputs.releaseTitle" == "" ]; then
+            echo "bumbVersion=prerelease" >> $GITHUB_OUTPUT
+          else
+            echo "bumbVersion=${{ inputs.releaseTitle }}" >> $GITHUB_OUTPUT
+          fi
+        run: |
+          if [ "inputs.preId" == "" ]; then
+            echo "tagPreId=prerelease" >> $GITHUB_OUTPUT
+          else
+            echo "tagPreId=${{ inputs.preId }}" >> $GITHUB_OUTPUT
+          fi
       - id: next_version
         uses: zwaldowski/semver-release-action@v3
         with: 
