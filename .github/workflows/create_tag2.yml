@@ -1,4 +1,4 @@
-name: Create TAG Julia TagBot
+name: Bump version and push tag
 
 on:
   workflow_dispatch:
@@ -11,14 +11,17 @@ on:
     
 permissions:
   contents: write
-  
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
-      - name: Bump version and push tag
-        uses: laputansoft/github-tag-action@v4.6
-        with:
-          github_token: ${{ env.github-token }}
-          tag: ${{ steps.package-version.outputs.version }}
+      - id: next_version
+        uses: zwaldowski/semver-release-action@v3
+        with: 
+          prefix: "v"
+          preid: prerelease        
+          bump: prerelease
+          dry_run: false
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+      - run: echo "${{ steps.next_version.outputs.version }}"
