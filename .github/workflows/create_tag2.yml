@@ -1,13 +1,22 @@
 name: Bump version and push tag
 
 on:
+  pull_request:
+    types: [opened, reopened, synchronize, closed]
+    branches:
+      - main
   workflow_dispatch:
-    # inputs:
-    #   releaseTag:
-    #     description: "Release Tag"
-    #     required: true
-    #     default: "null"
-    #     type: string
+    inputs:
+      bumb:
+        description: "bumb"
+        required: false
+        default: ""
+        type: string
+      preId:
+        description: "preId"
+        required: false
+        default: ""
+        type: string
     
 permissions:
   contents: write
@@ -16,12 +25,27 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Check the workflow dispatch input
+        id: setVariable
+        shell: bash
+        run: |
+          if [ "inputs.releaseTitle" == "" ]; then
+            echo "bumbVersion=prerelease" >> $GITHUB_OUTPUT
+          else
+            echo "bumbVersion=${{ inputs.releaseTitle }}" >> $GITHUB_OUTPUT
+          fi
+        run: |
+          if [ "inputs.preId" == "" ]; then
+            echo "tagPreId=prerelease" >> $GITHUB_OUTPUT
+          else
+            echo "tagPreId=${{ inputs.preId }}" >> $GITHUB_OUTPUT
+          fi
       - id: next_version
         uses: zwaldowski/semver-release-action@v3
         with: 
           prefix: "v"
-          preid: prerelease        
-          bump: prerelease
+          preid: ${{ steps.setVariable.outputs.bumbVersion }}        
+          bump: ${{ steps.setVariable.outputs.tagPreId }}
           dry_run: false
           github_token: ${{ secrets.GITHUB_TOKEN }}
       - run: echo "${{ steps.next_version.outputs.version }}"
