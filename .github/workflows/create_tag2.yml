@@ -21,7 +21,7 @@ jobs:
         with: 
           prefix: "v"
           # preid: prerelease        
-          bump: prepatch
+          bump: patch
           dry_run: false
           github_token: ${{ secrets.GITHUB_TOKEN }}
       - run: echo "${{ steps.next_version.outputs.version }}"
