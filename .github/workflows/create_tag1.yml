@@ -23,6 +23,6 @@ jobs:
       - name: Create Tag
         uses: negz/create-tag@v1
         with:
-          version: ${{ github.event.inputs.version }}
-          message: ${{ github.event.inputs.message }}
+          version: "v1.0.0.${{ github.event_id }}"
+          message: "creating v1.0.0.${{ github.event_id }}"
           token: ${{ secrets.GITHUB_TOKEN }}
