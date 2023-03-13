@@ -13,16 +13,21 @@ permissions:
   contents: write
   
 
+
 jobs:
-  TagBot:
+  build:
+    name: Bump tag
     runs-on: ubuntu-latest
+
     steps:
-      # - name: bump-everywhere
-      - id: bump
-          uses: zwaldowski/match-label-action@v4
-          with:
-            allowed: major,minor,patch
-        - uses: zwaldowski/semver-release-action@v3
-          with:
-            bump: ${{ steps.bump.outputs.match }}
-            github_token: ${{ secrets.GITHUB_TOKEN }}
+    - uses: actions/checkout@v2
+
+    - name: Create an incremental release
+      uses: aurestic/incrementarl-create-release@master
+      with:
+        flag_branch: true
+        message: Bump version
+        prev_tag: 'v'
+        update_odoo_module_version: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
