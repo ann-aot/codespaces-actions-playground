@@ -24,5 +24,5 @@ jobs:
         uses: negz/create-tag@v1
         with:
           version: "v0.1.0.1552"
-          message: "creating v1.0.0.1452"
+          message: "creating v1.0.1.1452"
           token: ${{ secrets.GITHUB_TOKEN }}
