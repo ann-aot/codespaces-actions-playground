@@ -18,9 +18,9 @@ jobs:
     steps:
       - id: next_version
         uses: zwaldowski/semver-release-action@v3
-          with:
+          with:            
+            bump: prepatch
             dry_run: true
-            bump: "patch"
             github_token: ${{ secrets.GITHUB_TOKEN }}
       - run: echo "${{ steps.next_version.outputs.version }}"
       - run: |
