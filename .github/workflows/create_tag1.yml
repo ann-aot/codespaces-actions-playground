@@ -11,18 +11,18 @@ on:
     
 permissions:
   contents: write
-  
-
 
 jobs:
-  release-please:
-    runs-on: ubuntu-latest
+  create-tag:
+    runs-on: ubuntu-18.04
+
     steps:
-      - id: bump
-        uses: zwaldowski/match-label-action
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Create Tag
+        uses: negz/create-tag@v1
         with:
-          allowed: major,minor,patch
-      - uses: zwaldowski/semver-release-action@v3
-        with:
-          bump: ${{ steps.bump.outputs.match }}
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          version: "v0.1.0.1552"
+          message: "creating v1.0.1.1452"
+          token: ${{ secrets.GITHUB_TOKEN }}
