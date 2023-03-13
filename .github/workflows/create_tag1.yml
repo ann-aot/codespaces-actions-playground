@@ -1,10 +1,17 @@
-name: Release Actions-R-Us/actions-tagger@latest (Actions Tagger)
+name: Create TAG Julia TagBot
 
 on:
   workflow_dispatch:
-
+    # inputs:
+    #   releaseTag:
+    #     description: "Release Tag"
+    #     required: true
+    #     default: "null"
+    #     type: string
+    
 permissions:
   contents: write
+  
 
 
 jobs:
