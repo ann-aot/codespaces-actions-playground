@@ -23,7 +23,7 @@ jobs:
           dry_run: true
           github_token: ${{ secrets.GITHUB_TOKEN }}
       - run: echo "${{ steps.next_version.outputs.version }}"
-      - uses: zwaldowski/semver-release-action@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          sha: ${{ steps.git_commit.outputs.sha }}
+      # - uses: zwaldowski/semver-release-action@v3
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      #     sha: ${{ steps.git_commit.outputs.sha }}
