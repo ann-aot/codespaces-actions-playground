@@ -19,9 +19,8 @@ jobs:
       - id: next_version
         uses: zwaldowski/semver-release-action@v3
         with:            
-          bump: prepatch
+          bump: prerelease
           dry_run: false
-          version_tag: "v0.0.0.1235"
           github_token: ${{ secrets.GITHUB_TOKEN }}
       - run: echo "${{ steps.next_version.outputs.version }}"
       # - uses: zwaldowski/semver-release-action@v3
