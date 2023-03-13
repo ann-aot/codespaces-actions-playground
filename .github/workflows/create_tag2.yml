@@ -20,9 +20,8 @@ jobs:
         uses: zwaldowski/semver-release-action@v3
           with:
             dry_run: true
-            bump: "prepatch"
+            bump: "patch"
             github_token: ${{ secrets.GITHUB_TOKEN }}
-      // Do something to modify the repo using `${{ steps.next_version.outputs.version }}`.
       - run: echo "${{ steps.next_version.outputs.version }}"
       - run: |
           git add .
