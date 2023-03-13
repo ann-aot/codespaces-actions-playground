@@ -25,15 +25,18 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Check the workflow dispatch input
-        id: setVariable
+      - name: Check bumb from workflow dispatch input
+        id: setBumb
         shell: bash
         run: |
-          if [ "inputs.releaseTitle" == "" ]; then
+          if [ "inputs.bumb" == "" ]; then
             echo "bumbVersion=prerelease" >> $GITHUB_OUTPUT
           else
             echo "bumbVersion=${{ inputs.releaseTitle }}" >> $GITHUB_OUTPUT
           fi
+      - name: Check preId from workflow dispatch input
+        id: setPreId
+        shell: bash
         run: |
           if [ "inputs.preId" == "" ]; then
             echo "tagPreId=prerelease" >> $GITHUB_OUTPUT
@@ -44,8 +47,8 @@ jobs:
         uses: zwaldowski/semver-release-action@v3
         with: 
           prefix: "v"
-          preid: ${{ steps.setVariable.outputs.bumbVersion }}        
-          bump: ${{ steps.setVariable.outputs.tagPreId }}
+          preid: ${{ steps.setBumb.outputs.bumbVersion }}        
+          bump: ${{ steps.setPreId.outputs.tagPreId }}
           dry_run: false
           github_token: ${{ secrets.GITHUB_TOKEN }}
       - run: echo "${{ steps.next_version.outputs.version }}"
