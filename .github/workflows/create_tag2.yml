@@ -25,30 +25,27 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Check bumb from workflow dispatch input
+      - name: set bumb value
+        uses: haya14busa/action-cond@v1
         id: setBumb
-        shell: bash
-        run: |
-          if [ "inputs.bumb" == "" ]; then
-            echo "bumbVersion=prerelease" >> $GITHUB_OUTPUT
-          else
-            echo "bumbVersion=${{ inputs.releaseTitle }}" >> $GITHUB_OUTPUT
-          fi
+        with:
+          cond: ${{ github.event_name == 'workflow_dispatch' }}
+          if_true: ${{ inputs.bumb }}
+          if_false: 'prerelease'
+
       - name: Check preId from workflow dispatch input
         id: setPreId
-        shell: bash
-        run: |
-          if [ "inputs.preId" == "" ]; then
-            echo "tagPreId=prerelease" >> $GITHUB_OUTPUT
-          else
-            echo "tagPreId=${{ inputs.preId }}" >> $GITHUB_OUTPUT
-          fi
+        with:
+          cond: ${{ github.event_name == 'workflow_dispatch' }}
+          if_true: ${{ inputs.preId }}
+          if_false: 'prerelease'
+
       - id: next_version
         uses: zwaldowski/semver-release-action@v3
         with: 
           prefix: "v"
-          preid: ${{ steps.setBumb.outputs.bumbVersion }}        
-          bump: ${{ steps.setPreId.outputs.tagPreId }}
+          preid: ${{ steps.setBumb.outputs.value }}        
+          bump: ${{ steps.setPreId.outputs.value }}
           dry_run: false
           github_token: ${{ secrets.GITHUB_TOKEN }}
       - run: echo "${{ steps.next_version.outputs.version }}"
