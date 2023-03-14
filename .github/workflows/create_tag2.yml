@@ -21,7 +21,8 @@ on:
           - prepatch
           - prerelease
       preId:
-        description: "preId"
+        description: "default value to differnt for workflow trigger and pull request trigger"
+        required: false
         type: choice
         options:
           -
@@ -29,12 +30,22 @@ on:
           - preminor
           - prepatch
           - prerelease
+      releaseType:
+        description: "Select the release type. By default only tag will be created. if you want to create a release with the tag select the type."
+        type: choice
+        required: false
+        options:
+          -
+          - draft
+          - publish
     
 # permissions:
 #   contents: write
 
 jobs:
+# todo: ann check env and create can be merged
   env:
+    name: "create Parameters no need of camel case"
     runs-on: ubuntu-latest
     steps:
       - name: set bumb value
@@ -61,6 +72,7 @@ jobs:
 
 
   createTag:
+    name: "createTag"
     runs-on: ubuntu-latest
     needs:
       - env
@@ -73,4 +85,38 @@ jobs:
           bump: ${{ needs.env.outputs.calculatedBumb }}
           dry_run: false
           github_token: ${{ secrets.GITHUB_TOKEN }}
-      # - run: echo "${{ needs.env.steps.next_version.outputs.version }}"
+          # todo: ann check this output
+      - run: echo "${{ steps.next_version.outputs.version }}"
+
+
+  # createDraftRelease:
+  #   name: "createDraftRelease"
+  #   if: ${{ github.event.pull_request.merged == true}}
+  #   runs-on: ubuntu-latest
+  #   needs:
+  #     - env
+  #   steps:
+  #     - id: next_version
+  #       uses: zwaldowski/semver-release-action@v3
+  #       with: 
+  #         prefix: "v"
+  #         preid: ${{ needs.env.outputs.calculatedPreId }}        
+  #         bump: ${{ needs.env.outputs.calculatedBumb }}
+  #         dry_run: false
+  #         github_token: ${{ secrets.GITHUB_TOKEN }}
+  #     # - run: echo "${{ needs.env.steps.next_version.outputs.version }}"
+
+
+  createRelease:
+    name: "createRelease"
+    if: github.event_name == 'workflow_dispatch' && inputs.releaseType == 'publish'
+    runs-on: ubuntu-latest
+    needs: [env , createTag]
+    steps:
+      # - uses: actions/checkout@v3
+      - name: Upload release notes
+        uses: Roang-zero1/github-create-release-action@v3
+        with:
+          created_tag: ${{ steps.tag_and_prepare_release.outputs.tag }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
