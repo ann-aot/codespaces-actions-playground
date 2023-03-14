@@ -86,7 +86,9 @@ jobs:
           dry_run: false
           github_token: ${{ secrets.GITHUB_TOKEN }}
           # todo: ann check this output
-      - run: echo "${{ steps.next_version.outputs.version }}"
+      - run: |
+          echo "${{ steps.next_version.outputs.version }}"
+          echo "${{ steps.next_version.outputs.version_tag }}"
 
 
   # createDraftRelease:
