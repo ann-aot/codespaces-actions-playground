@@ -44,11 +44,11 @@ on:
 
 jobs:
   createTag:
-    name: "create tag"
+    name: "Create tag"
     if:  github.event.pull_request.merged == true || github.event_name == 'workflow_dispatch' 
     runs-on: ubuntu-latest
     steps:
-      - name: get bumb value
+      - name: Get bumb value
         uses: haya14busa/action-cond@v1
         id: getBumb
         with:
@@ -56,7 +56,7 @@ jobs:
           if_true: ${{ inputs.bumb }}
           if_false: 'prerelease'
 
-      - name: get bumb value, if provided
+      - name: Get bumb value, if provided
         uses: haya14busa/action-cond@v1
         id: getPreId
         with:
@@ -64,28 +64,29 @@ jobs:
           if_true: ${{ inputs.preId }}
           if_false: 'prerelease'
       - run: |
-          echo "prefix: ${{ steps.getPreId.outputs.value }}"
           echo "bumb: ${{ steps.getBumb.outputs.value }}"
+          echo "prefix: ${{ steps.getPreId.outputs.value }}"
   
       - id: createNextTag
+        name: "Create tag"
         uses: zwaldowski/semver-release-action@v3
         with: 
           prefix: "v"
           preid: ${{ steps.getPreId.outputs.value }}       
           bump:  ${{ steps.getBumb.outputs.value }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
-      - run: echo "${{ steps.createNextTag.outputs.version_tag }} created!"
+      - run: echo "Tag ${{ steps.createNextTag.outputs.version_tag }} created!"
     outputs:
       newTag: ${{ steps.createNextTag.outputs.version_tag }}
 
 
   createRelease:
-    name: "create release"
+    name: "Create release"
     if: github.event_name == 'workflow_dispatch' && (inputs.releaseType == 'publish' || inputs.releaseType == 'draft')
     runs-on: ubuntu-latest
     needs: createTag
     steps:
-      - name: Upload release notes
+      - name: Create release
         uses: Roang-zero1/github-create-release-action@v3
         with:
           created_tag: ${{ needs.createTag.outputs.newTag }}
@@ -93,3 +94,4 @@ jobs:
           release_title:  Release ${{ needs.createTag.outputs.newTag }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: echo "Release ${{ needs.createTag.outputs.newTag }} inputs.releaseType !"
