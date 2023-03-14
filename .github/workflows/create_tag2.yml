@@ -71,16 +71,16 @@ jobs:
         uses: zwaldowski/semver-release-action@v3
         with: 
           prefix: "v"
-          preid: steps.getPreId.outputs.value        
-          bump:  steps.getBumb.outputs.value 
+          preid: ${{ steps.getPreId.outputs.value }}       
+          bump:  ${{ steps.getBumb.outputs.value }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
       - run: echo "${{ steps.createNextTag.outputs.version_tag }} created!"
     outputs:
-      newTag: ${{ steps.next_version.outputs.version_tag }}
+      newTag: ${{ steps.createNextTag.outputs.version_tag }}
 
 
   createRelease:
-    name: "createRelease"
+    name: "create release"
     if: github.event_name == 'workflow_dispatch' && (inputs.releaseType == 'publish' || inputs.releaseType == 'draft')
     runs-on: ubuntu-latest
     needs: createTag
