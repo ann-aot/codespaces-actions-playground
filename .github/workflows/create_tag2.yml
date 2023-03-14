@@ -87,6 +87,7 @@ jobs:
     needs: createTag
     steps:
       - name: Create release
+        id: createNewRelease
         uses: Roang-zero1/github-create-release-action@v3
         with:
           created_tag: ${{ needs.createTag.outputs.newTag }}
@@ -94,4 +95,4 @@ jobs:
           release_title:  Release ${{ needs.createTag.outputs.newTag }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - run: echo "Release ${{ needs.createTag.outputs.newTag }} inputs.releaseType !"
+      - run: echo "created release ${{ needs.createTag.outputs.newTag }} ${{ steps.createNewRelease.outputs.html_url }}!"
