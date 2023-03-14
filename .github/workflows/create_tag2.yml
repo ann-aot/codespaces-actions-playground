@@ -22,9 +22,9 @@ on:
           - prerelease
       preId:
         description: "preId"
-        default: " "
         type: choice
         options:
+          -
           - premajor
           - preminor
           - prepatch
