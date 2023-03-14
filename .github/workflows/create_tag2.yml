@@ -18,8 +18,8 @@ on:
         default: "prerelease"
         type: string
     
-permissions:
-  contents: write
+# permissions:
+#   contents: write
 
 jobs:
   env:
