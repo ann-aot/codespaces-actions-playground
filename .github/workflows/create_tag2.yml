@@ -22,7 +22,7 @@ on:
           - prerelease
       preId:
         description: "preId"
-        default: ""
+        default: " "
         type: choice
         options:
           - premajor
