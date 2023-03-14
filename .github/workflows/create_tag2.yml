@@ -74,7 +74,7 @@ jobs:
   createTag:
     name: "createTag"
     runs-on: ubuntu-latest
-    if: ${{ github.event.pull_request.merged == true}}
+    if: ${{ github.event.pull_request.merged == true || github.event_name == 'workflow_dispatch' }}
     needs:
       - env
     steps:
@@ -106,5 +106,6 @@ jobs:
         with:
           created_tag: ${{ needs.createTag.outputs.newTag }}
           create_draft: ${{ inputs.releaseType == 'draft' }}
+          release_title:  Release ${{ needs.createTag.outputs.newTag }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
