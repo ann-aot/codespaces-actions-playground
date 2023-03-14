@@ -10,12 +10,12 @@ on:
       bumb:
         description: "bumb"
         required: false
-        default: ""
+        default: "prerelease"
         type: string
       preId:
         description: "preId"
         required: false
-        default: ""
+        default: "prerelease"
         type: string
     
 permissions:
@@ -29,7 +29,7 @@ jobs:
         uses: haya14busa/action-cond@v1
         id: setBumb
         with:
-          cond: ${{ github.event_name == 'workflow_dispatch' && !!inputs.bumb}}
+          cond: ${{ github.event_name == 'workflow_dispatch' && inputs.bumb != 'prerelease' }}
           if_true: ${{ inputs.bumb }}
           if_false: 'prerelease'
 
@@ -37,12 +37,15 @@ jobs:
         uses: haya14busa/action-cond@v1
         id: setPreId
         with:
-          cond: ${{ github.event_name == 'workflow_dispatch' && !!inputs.preId}}
+          cond: ${{ github.event_name == 'workflow_dispatch' && inputs.preId != 'prerelease' }}
           if_true: ${{ inputs.preId }}
           if_false: 'prerelease'
       - run: |
           echo "${{ steps.setPreId.outputs.value }}"
           echo "${{ steps.setBumb.outputs.value }}"
+    outputs:
+      calculatedBumb: ${{ steps.setBumb.outputs.value }}
+      calculatedPreId: ${{ steps.setPreId.outputs.value }}
 
 
   createTag:
@@ -54,8 +57,8 @@ jobs:
         uses: zwaldowski/semver-release-action@v3
         with: 
           prefix: "v"
-          preid: ${{ needs.env.steps.setPreId.outputs.value }}        
-          bump: ${{ needs.env.steps.setBumb.outputs.value }}
+          preid: ${{ needs.env.outputs.calculatedPreId }}        
+          bump: ${{ needs.env.outputs.calculatedBumb }}
           dry_run: false
           github_token: ${{ secrets.GITHUB_TOKEN }}
-      - run: echo "${{ needs.env.steps.next_version.outputs.version }}"
+      # - run: echo "${{ needs.env.steps.next_version.outputs.version }}"
