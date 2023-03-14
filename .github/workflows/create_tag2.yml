@@ -41,7 +41,7 @@ jobs:
         uses: haya14busa/action-cond@v1
         id: setBumb
         with:
-          cond: ${{ github.event_name == 'workflow_dispatch' && inputs.bumb != 'prerelease' }}
+          cond: ${{ github.event_name == 'workflow_dispatch'}}
           if_true: ${{ inputs.bumb }}
           if_false: 'prerelease'
 
@@ -49,7 +49,7 @@ jobs:
         uses: haya14busa/action-cond@v1
         id: setPreId
         with:
-          cond: ${{ github.event_name == 'workflow_dispatch' && inputs.preId != 'prerelease' }}
+          cond: ${{ github.event_name == 'workflow_dispatch'}}
           if_true: ${{ inputs.preId }}
           if_false: 'prerelease'
       - run: |
