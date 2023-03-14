@@ -74,6 +74,7 @@ jobs:
   createTag:
     name: "createTag"
     runs-on: ubuntu-latest
+    if: ${{ github.event.pull_request.merged == true}}
     needs:
       - env
     steps:
