@@ -22,9 +22,13 @@ on:
           - prerelease
       preId:
         description: "preId"
-        required: false
-        default: "prerelease"
-        type: string
+        default: ""
+        type: choice
+        options:
+          - premajor
+          - preminor
+          - prepatch
+          - prerelease
     
 # permissions:
 #   contents: write
