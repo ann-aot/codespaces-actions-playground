@@ -89,29 +89,13 @@ jobs:
       - run: |
           echo "${{ steps.next_version.outputs.version }}"
           echo "${{ steps.next_version.outputs.version_tag }}"
-
-
-  # createDraftRelease:
-  #   name: "createDraftRelease"
-  #   if: ${{ github.event.pull_request.merged == true}}
-  #   runs-on: ubuntu-latest
-  #   needs:
-  #     - env
-  #   steps:
-  #     - id: next_version
-  #       uses: zwaldowski/semver-release-action@v3
-  #       with: 
-  #         prefix: "v"
-  #         preid: ${{ needs.env.outputs.calculatedPreId }}        
-  #         bump: ${{ needs.env.outputs.calculatedBumb }}
-  #         dry_run: false
-  #         github_token: ${{ secrets.GITHUB_TOKEN }}
-  #     # - run: echo "${{ needs.env.steps.next_version.outputs.version }}"
+    outputs:
+      newTag: ${{ steps.next_version.outputs.version_tag }}
 
 
   createRelease:
     name: "createRelease"
-    if: github.event_name == 'workflow_dispatch' && inputs.releaseType == 'publish'
+    if: github.event_name == 'workflow_dispatch' && (inputs.releaseType == 'publish' || inputs.releaseType == 'draft')
     runs-on: ubuntu-latest
     needs: [env , createTag]
     steps:
@@ -119,6 +103,7 @@ jobs:
       - name: Upload release notes
         uses: Roang-zero1/github-create-release-action@v3
         with:
-          created_tag: ${{ steps.tag_and_prepare_release.outputs.tag }}
+          created_tag: ${{ needs.createTag.outputs.newTag }}
+          create_draft: ${{ inputs.releaseType == 'draft' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
