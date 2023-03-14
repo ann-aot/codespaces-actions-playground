@@ -40,6 +40,10 @@ jobs:
           cond: ${{ github.event_name == 'workflow_dispatch' && !!inputs.preId}}
           if_true: ${{ inputs.preId }}
           if_false: 'prerelease'
+      - run: |
+          echo "${{ steps.setPreId.outputs.value }}"
+          echo "${{ steps.setBumb.outputs.value }}"
+
 
   createTag:
     runs-on: ubuntu-latest
@@ -50,8 +54,8 @@ jobs:
         uses: zwaldowski/semver-release-action@v3
         with: 
           prefix: "v"
-          preid: ${{ needs.env.steps.setBumb.outputs.value }}        
-          bump: ${{ needs.env.steps.setPreId.outputs.value }}
+          preid: ${{ needs.env.steps.setPreId.outputs.value }}        
+          bump: ${{ needs.env.steps.setBumb.outputs.value }}
           dry_run: false
           github_token: ${{ secrets.GITHUB_TOKEN }}
       - run: echo "${{ needs.env.steps.next_version.outputs.version }}"
