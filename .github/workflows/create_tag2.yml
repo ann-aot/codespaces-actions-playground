@@ -93,7 +93,7 @@ jobs:
           created_tag: ${{ needs.createTag.outputs.newTag }}
           create_draft: ${{ inputs.releaseType == 'draft' }}
           release_title:  Release ${{ needs.createTag.outputs.newTag }}
-          changelog_file: "CHANGELOG.md"
+          changelog_file: "../../CHANGELOG.md"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: echo "created release ${{ needs.createTag.outputs.newTag }} ${{ steps.createNewRelease.outputs.html_url }}!"
