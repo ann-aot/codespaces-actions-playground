@@ -51,7 +51,7 @@ jobs:
         uses: haya14busa/action-cond@v1
         id: getPreId
         with:
-          cond: ${{ github.event_name == 'workflow_dispatch' && (inputs.bumb == 'premajor' || inputs.bumb == 'preminor' || inputs.bumb == 'prepatch' || inputs.bumb == 'prerelease') }}
+          cond:  github.event_name == 'workflow_dispatch' && (inputs.bumb == 'premajor' || inputs.bumb == 'preminor' || inputs.bumb == 'prepatch' || inputs.bumb == 'prerelease') 
           if_true: ${{ inputs.bumb }}
           if_false: 'prerelease'
       - run: |
