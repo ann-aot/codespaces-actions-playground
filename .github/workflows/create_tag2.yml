@@ -20,16 +20,6 @@ on:
           - patch
           - prepatch
           - prerelease
-      preId:
-        description: "default value to differnt for workflow trigger and pull request trigger. select only this i the bumb is pre"
-        required: false
-        type: choice
-        options:
-          -
-          - premajor
-          - preminor
-          - prepatch
-          - prerelease
       releaseType:
         description: "Select the release type. By default only tag will be created. if you want to create a release with the tag select the type. se;ect release for [preid is empty]"
         type: choice
@@ -43,6 +33,7 @@ on:
 #   contents: write
 
 jobs:
+  # Create new tag.
   createTag:
     name: "Create tag"
     if:  github.event.pull_request.merged == true || github.event_name == 'workflow_dispatch' 
@@ -56,16 +47,16 @@ jobs:
           if_true: ${{ inputs.bumb }}
           if_false: 'prerelease'
 
-      - name: Get bumb value, if provided
+      - name: Get preId value, if provided
         uses: haya14busa/action-cond@v1
         id: getPreId
         with:
-          cond: ${{ github.event_name == 'workflow_dispatch'}}
-          if_true: ${{ inputs.preId }}
+          cond: ${{ github.event_name == 'workflow_dispatch' && (inputs.bumb == 'premajor' || inputs.bumb == 'preminor' || inputs.bumb == 'prepatch' || inputs.bumb == 'prerelease') }}
+          if_true: ${{ inputs.bumb }}
           if_false: 'prerelease'
       - run: |
           echo "bumb: ${{ steps.getBumb.outputs.value }}"
-          echo "prefix: ${{ steps.getPreId.outputs.value }}"
+          echo "preId: ${{ steps.getPreId.outputs.value }}"
   
       - id: createNextTag
         name: "Create tag"
@@ -80,6 +71,8 @@ jobs:
       newTag: ${{ steps.createNextTag.outputs.version_tag }}
 
 
+
+
   createRelease:
     name: "Create release"
     if: github.event_name == 'workflow_dispatch' && (inputs.releaseType == 'publish' || inputs.releaseType == 'draft')
@@ -88,7 +81,7 @@ jobs:
     steps:
       - name: Create release
         id: createNewRelease
-        uses: Roang-zero1/github-create-release-action@v3
+        uses: Roang-zero1/github-create-release-action@v2
         with:
           created_tag: ${{ needs.createTag.outputs.newTag }}
           create_draft: ${{ inputs.releaseType == 'draft' }}
